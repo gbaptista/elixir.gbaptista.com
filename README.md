@@ -64,9 +64,11 @@ IO.puts "Current Elixir infos:\n"
 
 IO.puts "Elixir Version: #{System.version}\n"
 
+IO.puts "Build info:\n\n#{inspect(System.build_info)}\n"
+
 IO.puts "Erlang/OTP Version: #{System.otp_release}"
 ```
-Snippet: [vJce-Q](http://elixir.gbaptista.com/playground/vJce-Q?demo=true)
+Snippet: [z0E9Tw](http://elixir.gbaptista.com/playground/z0E9Tw?demo=true)
 
 ### ExUnit
 _Elixir Version: **1.3.2**_ | _WhiteBread Version: **2.7.0**_
