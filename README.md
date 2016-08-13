@@ -315,7 +315,7 @@ defmodule ExampleSpec do
 end
 ```
 
-Snippet: [vIsWCg](http://elixir.gbaptista.com/test/vIsWCg?demo=true)
+Snippet: [xSZYIg](http://elixir.gbaptista.com/test/xSZYIg?demo=true)
 
 #### Spec tests: Doctests
 
@@ -346,7 +346,7 @@ defmodule KVServer.Command do
   end
 end
 ```
-Snippet: #TODO
+Snippet: [bE28KQ](http://elixir.gbaptista.com/test/bE28KQ?demo=true)
 
 #### Spec tests: Functions
 
@@ -388,7 +388,7 @@ IO.puts "2 + 2 = #{MyFunctions.sum(2, 2)}"
 IO.puts "3 x 2 = #{MyFunctions.multiply(3, 2)}"
 ```
 
-Snippet: [TK22cQ](http://elixir.gbaptista.com/test/TK22cQ?demo=true)
+Snippet: [2OBzYA](http://elixir.gbaptista.com/test/2OBzYA?demo=true)
 
 #### Spec tests: Quick sort algorithm
 
@@ -482,7 +482,7 @@ end
 Playground Code:
 ```elixir
 array = [8,5,7,6,4,2,3,1]
-IO.puts "Sort #{array} = #{QuickSort.sort(array)}"
+IO.puts "Sort #{inspect(array)} = #{inspect(QuickSort.sort(array))}"
 ```
 
-Snippet: #TODO
+Snippet: [PMutKA](http://elixir.gbaptista.com/test/PMutKA?demo=true)
