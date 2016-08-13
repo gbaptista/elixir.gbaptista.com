@@ -30,7 +30,9 @@ This repository is currently used for [issue tracking](https://github.com/gbapti
 
 * [ESpec](#espec)
   - [Spec tests: Empty template](#spec-tests-empty-template-1)
+  - [Spec tests: Doctests](#spec-tests-doctests)
   - [Spec tests: Functions](#spec-tests-functions-1)
+  - [Spec tests: Quick sort algorithm](#spec-tests-quick-sort-algorithm)
 
 ### Playground
 
