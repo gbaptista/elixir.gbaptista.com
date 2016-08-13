@@ -298,22 +298,55 @@ Snippet: [4aJUyw](http://elixir.gbaptista.com/test/4aJUyw?demo=true)
 
 ### ESpec
 
-_Elixir Version: **1.3.2**_ | _ESpec Version: **0.8.26**_
+_Elixir Version: **1.3.2**_ | _ESpec Version: **1.0.0**_
 
 #### Spec tests: Empty template
 
 Test Code:
 ```elixir
-defmodule SomeSpec do
+defmodule ExampleSpec do
   use ESpec
 
   context "test something" do
-    it do: expect true |> to(be_true)
+    it "tests the truth" do
+      expect true |> to(be true)
+    end  
   end
 end
 ```
 
 Snippet: [vIsWCg](http://elixir.gbaptista.com/test/vIsWCg?demo=true)
+
+#### Spec tests: Doctests
+
+Test Code:
+```elixir
+defmodule DoctestSpec do
+  use ESpec, async: true
+
+  doctest KVServer.Command
+end
+```
+Source Code:
+```elixir
+defmodule KVServer.Command do
+  @doc ~S"""
+  Parses the given `line` into a command.
+
+  ## Examples
+
+      iex> KVServer.Command.parse "CREATE shopping\r\n"
+      {:ok, {:create, "shopping"}}
+
+  """
+  def parse(line) do
+    case String.split(line) do
+      ["CREATE", bucket] -> {:ok, {:create, bucket}}
+    end
+  end
+end
+```
+Snippet: #TODO
 
 #### Spec tests: Functions
 
@@ -356,3 +389,100 @@ IO.puts "3 x 2 = #{MyFunctions.multiply(3, 2)}"
 ```
 
 Snippet: [TK22cQ](http://elixir.gbaptista.com/test/TK22cQ?demo=true)
+
+#### Spec tests: Quick sort algorithm
+
+Test Code:
+```elixir
+defmodule QuickSortSpec do
+  use ESpec, async: true
+
+  describe "&split/2" do
+    let :pivot, do: 5
+    let :less, do: shared[:less]
+    let :more, do: shared[:more]
+
+    before do
+      {less, more} = described_module.split(pivot, array)
+      {:shared, less: less, more: more}
+    end
+
+    context "with sample array" do
+      let :array, do: [8,7,6,4,2,3,1]
+
+      it do: less |> should(eq [4,2,3,1])
+      it do: more |> should(eq [8,7,6])
+    end
+
+    describe "edge cases" do
+      context "when array has 2 elements" do
+        let :array, do: [5,6]
+        it do: less |> should(eq [5])
+        it do: more |> should(eq [6])
+      end
+
+      context "when array has only 1 element" do
+        let :array, do: [5]
+        it do: less |> should(eq [5])
+        it do: more |> should(eq [])
+      end
+    end
+  end
+
+  describe "&sort/1" do
+    subject do: described_module.sort(array)
+
+    context "when length is 0" do
+      let :array, do: []
+      it do: is_expected |> to(eq [])
+    end
+
+    context "when length is 1" do
+      let :array, do: [1]
+      it do: is_expected |> to(eq [1])
+    end
+
+    context "when length is 1" do
+      let :array, do: [8,5,7,6,4,2,3,1]
+      subject do: described_module.sort(array)
+
+      it do: is_expected.to(eq [1,2,3,4,5,6,7,8])
+    end
+  end
+end
+```
+
+Source Code:
+```elixir
+defmodule QuickSort do
+  def sort(array) when length(array) > 1 do
+    [pivot | rest] = array
+    {left, right} = split(pivot, rest)
+    sort(left) ++ [pivot] ++ sort(right)
+  end
+
+  def sort(array), do: array
+
+  def split(pivot, rest), do: do_split(pivot, rest, {[], []})
+
+  defp do_split(pivot, [hd | tl], {left, right}) when hd <= pivot do
+    do_split(pivot, tl, {[hd | left], right})
+  end
+
+  defp do_split(pivot, [hd | tl], {left, right}) do
+    do_split(pivot, tl, {left, [hd | right]})
+  end
+
+  defp do_split(_pivot, [], {left, right}) do
+    {Enum.reverse(left), Enum.reverse(right)}
+  end
+end
+```
+
+Playground Code:
+```elixir
+array = [8,5,7,6,4,2,3,1]
+IO.puts "Sort #{array} = #{QuickSort.sort(array)}"
+```
+
+Snippet: #TODO
